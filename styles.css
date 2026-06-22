@@ -47,6 +47,16 @@
   --glass-blur: blur(24px);
   --glass-shadow: 0 8px 32px rgba(0,0,0,0.08), 0 0 0 1px rgba(255,255,255,0.5) inset;
   --noise: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+
+  /* Layout spacing */
+  --nav-height: 56px;
+  --nav-bottom: 24px;
+  --top-bar-height: 48px;
+  --footer-padding-bottom: 100px;
+
+  /* WhatsApp */
+  --whatsapp: #25D366;
+  --whatsapp-shadow: rgba(37, 211, 102, 0.35);
 }
 
 /* ---------- Reset ---------- */
@@ -477,7 +487,7 @@ h3 { font-size: clamp(1.2rem, 2.5vw, 1.5rem); }
 /* ---------- Floating Pill Navigation (Light Glassmorphic) ---------- */
 .navbar {
   position: fixed;
-  bottom: 24px;
+  bottom: var(--nav-bottom);
   left: 50%;
   transform: translateX(-50%);
   z-index: 9999;
@@ -1836,7 +1846,7 @@ textarea.form-control { resize: vertical; min-height: 120px; }
 .footer {
   background: #0B1120;
   color: rgba(255,255,255,0.7);
-  padding: 80px 0 0;
+  padding: 80px 0 var(--footer-padding-bottom);
   position: relative;
   overflow: hidden;
 }
@@ -2309,24 +2319,24 @@ textarea.form-control { resize: vertical; min-height: 120px; }
 /* ---------- WhatsApp Float ---------- */
 .whatsapp-float {
   position: fixed;
-  bottom: 28px;
-  right: 28px;
+  bottom: calc(var(--nav-bottom) + var(--nav-height) + 16px);
+  right: 20px;
   z-index: 900;
-  width: 56px;
-  height: 56px;
+  width: 52px;
+  height: 52px;
   border-radius: 50%;
-  background: #25D366;
+  background: var(--whatsapp);
   color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 20px rgba(37, 211, 102, 0.35);
+  box-shadow: 0 4px 20px var(--whatsapp-shadow);
   transition: all var(--duration-normal) var(--ease-out);
 }
 
 .whatsapp-float:hover {
   transform: scale(1.08);
-  box-shadow: 0 8px 28px rgba(37, 211, 102, 0.45);
+  box-shadow: 0 8px 28px var(--whatsapp-shadow);
 }
 
 .whatsapp-float::after {
@@ -2334,7 +2344,7 @@ textarea.form-control { resize: vertical; min-height: 120px; }
   position: absolute;
   inset: -4px;
   border-radius: 50%;
-  border: 2px solid #25D366;
+  border: 2px solid var(--whatsapp);
   animation: whatsappPulse 2.5s ease-in-out infinite;
   pointer-events: none;
 }
@@ -2734,8 +2744,20 @@ textarea.form-control { resize: vertical; min-height: 120px; }
   .features-grid { grid-template-columns: 1fr; }
   .facility-detail { grid-template-columns: 1fr; gap: 32px; }
   .facility-detail.reverse { direction: ltr; }
-  .top-bar { display: none; }
   .gallery-grid { grid-template-columns: 1fr 1fr; }
+
+  /* Top bar: compact on mobile */
+  .top-bar {
+    height: 40px;
+    padding: 0 12px;
+    min-width: auto;
+    top: 10px;
+  }
+  .top-bar-logo-icon { width: 26px; height: 26px; font-size: 0.75rem; }
+  .top-bar-full { display: none; }
+  .top-bar-abbr { display: inline; font-size: 0.85rem; }
+  .top-bar-back { padding: 6px 12px; font-size: 0.75rem; }
+  .top-bar-back svg { width: 12px; height: 12px; }
 
   /* Floating nav: compact on mobile */
   .nav-pill { gap: 2px; padding: 4px; }
@@ -2750,12 +2772,17 @@ textarea.form-control { resize: vertical; min-height: 120px; }
 @media (max-width: 480px) {
   .benefits-list { grid-template-columns: 1fr; }
   .stats-grid { grid-template-columns: 1fr 1fr; }
-  .nav-pill-item { padding: 8px 8px; }
-  .nav-pill-cta { padding: 8px 12px; }
+  .nav-pill-item { padding: 7px 7px; }
+  .nav-pill-cta { padding: 7px 10px; }
   .gallery-grid { grid-template-columns: 1fr; }
-  .hero h1 { font-size: 2rem; }
-  .section-title { font-size: 1.6rem; }
-  .pricing-price { font-size: 2.2rem; }
+  .hero h1 { font-size: 1.8rem; }
+  .section-title { font-size: 1.5rem; }
+  .pricing-price { font-size: 2rem; }
+  .container { padding: 0 16px; }
+  .section { padding: 56px 0; }
+  .footer { padding: 56px 0 var(--footer-padding-bottom); }
+  .top-bar { top: 8px; }
+  .top-bar-back { display: none; }
 }
 
 /* ---------- Reduced Motion ---------- */
